@@ -1,16 +1,18 @@
-class Interface
+# frozen_string_literal: true
 
-  Start_Menu = %(
+# :nodoc:
+class Interface
+  START_MENU = %(
    1. Начать игру;
    2. Показать правила игры;
    3. Выйти из игры.
   )
 
   def start_menu
-    puts Start_Menu
+    puts START_MENU
   end
 
-  Rules = %(
+  RULES = %(
     Выигрывает игрок, у которого сумма очков ближе к 21.
     1. Если у игрока сумма очков больше 21, то он проиграл;
     2. Если сумма очков у игрока и дилера одинаковая, то объявляется ничья
@@ -25,10 +27,10 @@ class Interface
   )
 
   def rules
-    puts Rules
+    puts RULES
   end
 
-  User_Menu = %(
+  USER_MENU = %(
    1. Пропустить ход;
    2. Добавить карту;
    3. Открыть карты;
@@ -36,16 +38,16 @@ class Interface
   )
 
   def user_menu
-    puts User_Menu
+    puts USER_MENU
   end
 
-  Menu_Next = %(
+  MENU_NEXT = %(
     Выберите действие:
     1. Новая игра;
     2. Выйти из игры.
   )
 
   def menu_next
-    puts Menu_Next
+    puts MENU_NEXT
   end
 end

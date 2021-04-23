@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'card'
 require_relative 'diler'
 require_relative 'interface'

@@ -1,11 +1,15 @@
+# frozen_string_literal: true
+
 require_relative 'card'
 require_relative 'diler'
 require_relative 'interface'
 require_relative 'player'
 require_relative 'user'
 
+# :nodoc:
 class Game
   attr_accessor :user, :deck, :diler
+
   SCORE_VICTORY = 21
 
   def initialize
@@ -23,10 +27,7 @@ class Game
     when 1
       input_user_name
       puts "\nПриветствую, #{@user_name}!"
-      bank
-      rate
-      distribution_cards
-      process
+      game
     when 2
       @interface.rules
       choice = gets.chomp.to_i
@@ -43,7 +44,7 @@ class Game
     print 'Введите ваше имя:'
     @user_name = gets.chomp.capitalize!
     raise StandardError, 'Ошибка. Имя не содержит символов.' if @user_name.nil?
-    rescue StandardError => e
+  rescue StandardError => e
     puts e.message
     retry
   end
@@ -83,35 +84,42 @@ class Game
   end
 
   def open_cards
-     puts ''
-     puts 'Ваши карты: '
-     user.score.cards.each { |user_cards| puts"#{user_cards.output_card}" }
-     puts "Ваши очки: #{user.score.points}"
-     puts ''
-     puts 'Карты дилера: '
-     diler.score.cards.each { |diler_cards| puts "#{diler_cards.output_card}" }
-     puts "Очки дилера: #{diler.score.points}"
-     game_over
-   end
+    puts ''
+    puts 'Ваши карты: '
+    user.score.cards.each { |user_cards| puts user_cards.output_card.to_s }
+    puts "Ваши очки: #{user.score.points}"
+    puts ''
+    puts 'Карты дилера: '
+    diler.score.cards.each { |diler_cards| puts diler_cards.output_card.to_s }
+    puts "Очки дилера: #{diler.score.points}"
+    game_over
+  end
 
-   def show_cards
-     puts 'Ваши карты:'
-     @user.score.cards.each { |user_cards| puts user_cards.output_card }
-     puts "Ваши очки: #{user.score.points}"
-     puts ''
-     puts 'Карты дилера:'
-     @diler.score.cards.each { |diler_cards| puts '...................................' }
-   end
+  def show_cards
+    puts 'Ваши карты:'
+    @user.score.cards.each { |user_cards| puts user_cards.output_card }
+    puts "Ваши очки: #{user.score.points}"
+    puts ''
+    puts 'Карты дилера:'
+    @diler.score.cards.each { |_diler_cards| puts '...................................' }
+  end
 
-   def skip_turn
-     @diler.score.pull_in_card(@deck)
-   end
+  def skip_turn
+    @diler.score.pull_in_card(@deck)
+  end
 
-   def add_card
-     @user.score.pull_in_card(@deck)
-   end
+  def add_card
+    @user.score.pull_in_card(@deck)
+  end
 
-   def game_over
+  def game
+    bank
+    rate
+    distribution_cards
+    process
+  end
+
+  def game_over
     if ((@user.score.points <= SCORE_VICTORY) && (@user.score.points > @diler.score.points)) || (@diler.score.points > SCORE_VICTORY)
       puts "\nВы выиграли!"
       win
@@ -161,10 +169,7 @@ class Game
     choose = gets.chomp.to_i
     case choose
     when 1
-      bank
-      rate
-      distribution_cards
-      process
+      game
     when 2
       exit
     end

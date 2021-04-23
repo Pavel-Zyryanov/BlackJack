@@ -1,0 +1,21 @@
+Style/Documentation:
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 25
+
+Layout/LineLength:
+  Max: 140
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/ClassLength:
+  Exclude:
+    - game.rb
+
+Layout/EndOfLine:
+  Exclude:
+    - main.rb
+    - user.rb
+    - diler.rb

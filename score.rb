@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require_relative 'deck'
 
+# :nodoc:
 class Score
   attr_accessor :cards
   attr_reader :point
@@ -17,11 +20,11 @@ class Score
     @point = 0
     @cards.each do |card|
       value = card.point_card
-      if @point + value.max > 21
-        @point += value.min
-      else
-        @point += value.max
-      end
+      @point += if @point + value.max > 21
+                  value.min
+                else
+                  value.max
+                end
     end
     @point
   end

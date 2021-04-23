@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 require_relative 'deck'
 require_relative 'score'
 
-
+# :nodoc:
 class Player
   attr_accessor :bank, :score, :bet
-
-  @@bet = 0
 
   def initialize
     @score = Score.new
@@ -24,8 +24,7 @@ class Player
     end
   end
 
- def get_bet(win)
+  def get_bet(win)
     @bank += win
- end
-
+  end
 end
