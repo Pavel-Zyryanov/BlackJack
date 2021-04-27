@@ -2,15 +2,13 @@
 
 # :nodoc:
 class Interface
+  attr_accessor :user_name
+
   START_MENU = %(
    1. Начать игру;
    2. Показать правила игры;
    3. Выйти из игры.
   )
-
-  def start_menu
-    puts START_MENU
-  end
 
   RULES = %(
     Выигрывает игрок, у которого сумма очков ближе к 21.
@@ -26,10 +24,6 @@ class Interface
     Для выхода назад в меню нажмите 1.
   )
 
-  def rules
-    puts RULES
-  end
-
   USER_MENU = %(
    1. Пропустить ход;
    2. Добавить карту;
@@ -37,17 +31,95 @@ class Interface
    4. Выйти из игры.
   )
 
-  def user_menu
-    puts USER_MENU
-  end
-
   MENU_NEXT = %(
     Выберите действие:
     1. Новая игра;
     2. Выйти из игры.
   )
 
+  def start_menu
+    puts 'Игра BlackJack'
+    puts START_MENU
+  end
+
+  def rules
+    puts RULES
+  end
+
+  def user_menu
+    puts "\n#{@user_name}, ваш ход."
+    puts 'Выберите действие:'
+    puts USER_MENU
+  end
+
   def menu_next
     puts MENU_NEXT
+  end
+
+  def input_user_name
+    print 'Введите ваше имя:'
+    @user_name = gets.chomp.capitalize!
+    puts "\nПриветствую, #{@user_name}!"
+    raise StandardError, 'Ошибка. Имя не содержит символов.' if @user_name.nil?
+  rescue StandardError => e
+    puts e.message
+    retry
+  end
+
+  def bank(user, diler)
+    puts ''
+    puts "Ваш банк #{user.bank}$"
+    puts "Банк дилера: #{diler.bank}$"
+  end
+
+  def rate_text
+    puts "#{@user_name} и Дилер сделали ставки по 10$ "
+  end
+
+  def open_cards(user, diler)
+    puts ''
+    puts 'Ваши карты: '
+    user.hand.cards.each { |user_cards| puts user_cards.output_card.to_s }
+    puts "Ваши очки: #{user.hand.points}"
+    puts ''
+    puts 'Карты дилера: '
+    diler.hand.cards.each { |diler_cards| puts diler_cards.output_card.to_s }
+    puts "Очки дилера: #{diler.hand.points}"
+  end
+
+  def show_cards(user, diler)
+    puts 'Ваши карты:'
+    user.hand.cards.each { |user_cards| puts user_cards.output_card }
+    puts "Ваши очки: #{user.hand.points}"
+    puts ''
+    puts 'Карты дилера:'
+    diler.hand.cards.each { |_diler_cards| puts '...................................' }
+  end
+
+  def win_text
+    puts "\nВы выиграли!"
+  end
+
+  def lose_text
+    puts "\nВы проиграли..."
+  end
+
+  def draw_text
+    puts 'Ничья.'
+    puts 'Всем возвращается по 10$'
+  end
+
+  def bank_zero_diler
+    puts 'У Дилера нет необходимого количества денег (10$) для ставки.'
+    end_game
+  end
+
+  def bank_zero_user
+    puts "У #{@user_name} нет необходимого количества денег (10$) для ставки."
+    end_game
+  end
+
+  def end_game
+    puts 'Конец игры.'
   end
 end

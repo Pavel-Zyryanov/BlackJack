@@ -3,7 +3,7 @@
 require_relative 'deck'
 
 # :nodoc:
-class Score
+class Hand
   attr_accessor :cards
   attr_reader :point
 

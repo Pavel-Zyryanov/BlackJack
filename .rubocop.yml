@@ -13,6 +13,7 @@ Metrics/AbcSize:
 Metrics/ClassLength:
   Exclude:
     - game.rb
+    - interface.rb
 
 Layout/EndOfLine:
   Exclude:

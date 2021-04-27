@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 require_relative 'deck'
-require_relative 'score'
+require_relative 'hand'
 
 # :nodoc:
 class Player
-  attr_accessor :bank, :score, :bet
+  attr_accessor :bank, :hand, :bet
 
   def initialize
-    @score = Score.new
+    @hand = Hand.new
     @bank = 100
     @point = 0
     @bet = 0
@@ -19,7 +19,6 @@ class Player
       @bank -= 10
       @bet += 10
     else
-      puts 'У игрока нет необходимого количества денег (10 $) для ставки. Конец игры.'
       exit
     end
   end
