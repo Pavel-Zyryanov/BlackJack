@@ -10,6 +10,9 @@ Layout/LineLength:
 Metrics/AbcSize:
   Enabled: false
 
+Metrics/CyclomaticComplexity:
+  Max: 8
+
 Metrics/ClassLength:
   Exclude:
     - game.rb

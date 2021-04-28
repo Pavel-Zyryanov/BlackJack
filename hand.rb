@@ -5,11 +5,9 @@ require_relative 'deck'
 # :nodoc:
 class Hand
   attr_accessor :cards
-  attr_reader :point
 
   def initialize
     @cards = []
-    @point = 0
   end
 
   def pull_in_card(deck)
@@ -17,15 +15,20 @@ class Hand
   end
 
   def points
-    @point = 0
+    point = 0
     @cards.each do |card|
-      value = card.point_card
-      @point += if @point + value.max > 21
-                  value.min
-                else
-                  value.max
-                end
+      value = card.value
+      case value
+      when 'jack' then point += 10
+      when 'queen' then point += 10
+      when 'king' then point += 10
+      when 'ace'
+        point += 11 if point + 11 < 21
+        point += 1 if point + 1 > 21
+      else
+        point += value.to_i
+      end
     end
-    @point
+    point
   end
 end

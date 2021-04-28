@@ -13,8 +13,8 @@ class Deck
 
   def create_deck
     Card::SUIT.each do |suit|
-      Card::VALUE.each_with_index do |value, i|
-        @cards << Card.new(suit, value, Card::POINT_CARD[i])
+      Card::VALUE.each do |value|
+        @cards << Card.new(suit, value)
       end
     end
   end

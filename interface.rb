@@ -79,17 +79,17 @@ class Interface
   def open_cards(user, diler)
     puts ''
     puts 'Ваши карты: '
-    user.hand.cards.each { |user_cards| puts user_cards.output_card.to_s }
+    user.hand.cards.each { |user_cards| puts "Масть: #{user_cards.suit} ,  Карта: #{user_cards.value}" }
     puts "Ваши очки: #{user.hand.points}"
     puts ''
     puts 'Карты дилера: '
-    diler.hand.cards.each { |diler_cards| puts diler_cards.output_card.to_s }
+    diler.hand.cards.each { |diler_cards| puts "Масть: #{diler_cards.suit} ,  Карта: #{diler_cards.value}" }
     puts "Очки дилера: #{diler.hand.points}"
   end
 
   def show_cards(user, diler)
     puts 'Ваши карты:'
-    user.hand.cards.each { |user_cards| puts user_cards.output_card }
+    user.hand.cards.each { |user_cards| puts "Масть: #{user_cards.suit} ,  Карта: #{user_cards.value}" }
     puts "Ваши очки: #{user.hand.points}"
     puts ''
     puts 'Карты дилера:'
